@@ -66,6 +66,21 @@ a:hover {
   font-weight: 400;
 }
 
+.weather-week {
+  border: 1px solid #dadde1;
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+.col-3 {
+  text-align: center;
+}
+
+.week-temperature {
+  text-align: center;
+}
+
 .footer-note {
   font-size: 12px;
   text-align: center;
