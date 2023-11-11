@@ -23,7 +23,6 @@ function formatDate(timestamp) {
 }
 
 function displayTemperature(response) {
-  console.log(response);
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
@@ -76,6 +75,30 @@ function displayCelsiusTemperature(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
+function displayForecast() {
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday"];
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `<div class="weather-forecast-day">
+          <div class="weather-forecast-date">${day}</div>
+          <div class="weather-icon">
+            <img
+              src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png"
+              alt=""
+            />
+          </div>
+          <span class="weather-forecast-temperature">24° / </span>
+          <span class="weather-forecast-temperature">17°</span>
+        </div>`;
+  });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+
 let celsiusTemperature = null;
 
 let form = document.querySelector("#search-form");
@@ -88,3 +111,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Lisbon");
+displayForecast();
