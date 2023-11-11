@@ -66,19 +66,19 @@ a:hover {
   font-weight: 400;
 }
 
-.weather-week {
+.weather-forecast {
   border: 1px solid #dadde1;
   padding: 15px;
   margin: 20px auto;
   border-radius: 10px;
 }
 
-.col-3 {
+.weather-forecast-day {
   text-align: center;
 }
 
-.week-temperature {
-  text-align: center;
+.weather-forecast-date {
+  font-size: 19px;
 }
 
 .footer-note {
