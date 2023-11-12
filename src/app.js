@@ -1,27 +1,3 @@
-function formatDate(timestamp) {
-  let date = new Date(timestamp);
-  let hours = date.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = date.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = days[date.getDay()];
-
-  return `${day} ${hours}:${minutes}`;
-}
-
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -44,6 +20,32 @@ function displayTemperature(response) {
     `https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
   iconElement.setAttribute("alt", response.data.condition.description);
+
+  getForecast(response.data.city);
+}
+
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+
+  return `${day} ${hours}:${minutes}`;
 }
 
 function search(city) {
@@ -75,7 +77,15 @@ function displayCelsiusTemperature(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-function displayForecast() {
+function getForecast(city) {
+  let apiKey = "f388b055e9fa4ta275o3155340404ccb";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  console.log(response.data);
+
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday"];
   let forecastHtml = "";
 
@@ -83,16 +93,16 @@ function displayForecast() {
     forecastHtml =
       forecastHtml +
       `<div class="weather-forecast-day">
-          <div class="weather-forecast-date">${day}</div>
-          <div class="weather-icon">
-            <img
-              src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png"
-              alt=""
-            />
-          </div>
-          <span class="weather-forecast-temperature">24° / </span>
-          <span class="weather-forecast-temperature">17°</span>
-        </div>`;
+    <div class="weather-forecast-date">${day}</div>
+    <div class="weather-icon">
+    <img
+    src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png"
+    alt=""
+    />
+    </div>
+    <span class="weather-forecast-temperature">24° / </span>
+    <span class="weather-forecast-temperature">17°</span>
+    </div>`;
   });
 
   let forecastElement = document.querySelector("#forecast");
@@ -111,4 +121,3 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Lisbon");
-displayForecast();
